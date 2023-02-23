@@ -1,0 +1,37 @@
+--Q1: What is the percentage of each employee's contribution to customer support?
+SELECT emp.FirstName , COUNT(emp.EmployeeId) * 100/59 count_supp 
+FROM employee emp
+JOIN customer cus
+ON  emp.EmployeeId = cus.SupportRepId 
+GROUP BY emp.EmployeeId
+ORDER BY count_supp DESC;
+
+--Q2:what are the most 5 Artists makes Albums?
+SELECT art.Name ,COUNT(alb.Title) "ALBUM_COUNT"
+FROM Artist as art
+JOIN Album as alb
+ON art.ArtistId = alb.ArtistId
+GROUP BY art.ArtistId 
+ORDER BY 2 DESC 
+LIMIT 5;
+
+Q3--What are the top 5 music dependent on unitprice ?
+SELECT G.Name , SUM(IL.UnitPrice) "total"
+FROM Genre G
+JOIN Track T
+ON T.GenreId = G.GenreId
+JOIN InvoiceLine IL
+ON IL.TrackId = T.TrackId
+GROUP BY G.Name
+ORDER BY 2 DESC
+LIMIT 5;
+
+--Q4: Who is the bestseller?
+SELECT e.firstName, sum(I.total) "total"
+from Invoice I
+JOIN employee e
+ON e.employeeid = c.supportrepid
+JOIN customer c
+ON c.customerid =  I.customerid
+GROUP BY e.Employeeid
+ORDER BY 2 DESC;
